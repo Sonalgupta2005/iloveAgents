@@ -31,11 +31,12 @@ export default function Sidebar({ open, onClose }) {
         />
       )}
 
-      <aside
-        className={`fixed top-14 left-0 bottom-0 z-40 w-60 flex flex-col border-r transition-all duration-200
-          dark:bg-surface dark:border-border bg-white border-gray-200
-          ${open ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}
-      >
+<aside
+  className={`fixed top-14 left-0 bottom-0 z-40 w-60 flex flex-col border-r transition-all duration-200
+    dark:bg-surface dark:border-border bg-white border-gray-200
+    ${open ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}
+>
+      
         {/* Header */}
         <div className="px-4 py-3 flex items-center justify-between">
           <span className="text-xs font-semibold uppercase tracking-wider dark:text-text-muted text-gray-400">
