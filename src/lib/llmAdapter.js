@@ -335,7 +335,7 @@ export async function streamAgent({ provider, model, apiKey, systemPrompt, userM
     })
 
     if (!response.ok) {
-      await handleErrorResponse(response)
+      await handleErrorResponse(response, provider)
     }
 
     const reader = response.body.getReader()
