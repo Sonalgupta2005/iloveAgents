@@ -7,6 +7,11 @@ on:
     - cron: '30 3 * * 1'
   workflow_dispatch:
 
+permissions:
+  pull-requests: write
+  issues: write
+  contents: read
+
 jobs:
   weekly-summary:
     runs-on: ubuntu-latest
@@ -137,8 +142,6 @@ jobs:
 
             // ─────────────────────────────────────────────────────────────
             // COLLECT: Contributors who missed the 5-day assignment deadline
-            // Find assigned issues where assignment was > 5 days ago and
-            // no PR has been opened referencing them
             // ─────────────────────────────────────────────────────────────
 
             // Build set of issue numbers referenced by any open or merged PR
@@ -192,7 +195,6 @@ jobs:
 
             // ─────────────────────────────────────────────────────────────
             // COLLECT: Open PRs needing maintainer review
-            // (open PRs with no review yet, excluding maintainer's own PRs)
             // ─────────────────────────────────────────────────────────────
             const openPRs = allPRsRaw.filter(pr => pr.state === 'open');
             const prsNeedingReview = [];
@@ -277,32 +279,32 @@ jobs:
             // ─────────────────────────────────────────────────────────────
             const body = `## 📊 Weekly Summary — ${weekLabel}
 
-### 📥 Issues
-- New issues opened: ${newIssuesOnly.length}
-- Issues closed: ${closedIssuesThisWeek.length}
-- Issues with no assignee:
-${issuesNoAssigneeList}
+            ### 📥 Issues
+            - New issues opened: ${newIssuesOnly.length}
+            - Issues closed: ${closedIssuesThisWeek.length}
+            - Issues with no assignee:
+            ${issuesNoAssigneeList}
 
-### 🔀 Pull Requests
-- PRs opened: ${prsOpenedThisWeek.length}
-- PRs merged: ${prsMergedThisWeek.length}
-- PRs closed without merge: ${prsClosedWithoutMerge.length}
-- PRs with needs-fix still open:
-${needsFixPRList}
+            ### 🔀 Pull Requests
+            - PRs opened: ${prsOpenedThisWeek.length}
+            - PRs merged: ${prsMergedThisWeek.length}
+            - PRs closed without merge: ${prsClosedWithoutMerge.length}
+            - PRs with needs-fix still open:
+            ${needsFixPRList}
 
-### 👥 Contributors
-- New contributors this week: ${newContributors.size}
-${newContributorsList}
-- Contributors who missed 5-day deadline:
-${missedDeadlineList}
+            ### 👥 Contributors
+            - New contributors this week: ${newContributors.size}
+            ${newContributorsList}
+            - Contributors who missed 5-day deadline:
+            ${missedDeadlineList}
 
-### 📌 Action Needed
-- Issues needing your assignment:
-${actionIssuesList}
-- PRs needing your review:
-${actionPRsList}
+            ### 📌 Action Needed
+            - Issues needing your assignment:
+            ${actionIssuesList}
+            - PRs needing your review:
+            ${actionPRsList}
 
-— Auto generated every Monday by GitHub Actions 🤖`;
+            — Auto generated every Monday by GitHub Actions 🤖`;
 
             // ─────────────────────────────────────────────────────────────
             // CREATE: Open the weekly summary issue assigned to maintainer
