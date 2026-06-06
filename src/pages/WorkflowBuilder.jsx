@@ -12,7 +12,7 @@ import {
   GitBranch,
 } from 'lucide-react'
 import * as Icons from 'lucide-react'
-import agents from '../agents/registry'
+import { useAgents } from '../lib/useAgents'
 import { saveWorkflow } from '../hooks/useWorkflows'
 import { useDocumentTitle } from '../lib/useDocumentTitle'
 
@@ -22,6 +22,7 @@ export default function WorkflowBuilder() {
   const navigate = useNavigate()
   const location = useLocation()
   useDocumentTitle('Build a Workflow')
+  const { agents } = useAgents()
 
   // Pre-populate chain when navigating from a SuggestedChainPills click
   const preselected = location.state?.preselectedAgents ?? []

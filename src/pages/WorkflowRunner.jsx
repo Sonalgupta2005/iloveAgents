@@ -14,7 +14,7 @@ import {
   ArrowRight,
 } from 'lucide-react'
 import * as Icons from 'lucide-react'
-import agents from '../agents/registry'
+import { useAgents } from '../lib/useAgents'
 import OutputRenderer from '../components/OutputRenderer'
 import ApiKeyBar from '../components/ApiKeyBar'
 import RunRating from '../components/RunRating'
@@ -80,6 +80,7 @@ export default function WorkflowRunner() {
   const { id } = useParams()
   const location = useLocation()
   const navigate = useNavigate()
+  const { agents } = useAgents()
 
   const { provider, setProvider, apiKey, setApiKey, saveForSession, setSaveForSession } = useApiKey()
 
