@@ -1,16 +1,30 @@
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import * as Icons from 'lucide-react'
-import { useAgents } from '../lib/useAgents'
+import { loadAllAgents } from '../agents/registry'
 
 export default function Sidebar({ open, onClose }) {
   const [sidebarSearchQuery, setSidebarSearchQuery] = useState('')
   const [openCategories, setOpenCategories] = useState({})
   const [searchExpandedCategories, setSearchExpandedCategories] = useState({})
+  const [agents, setAgents] = useState([])
 
-  const { agents } = useAgents()
+  useEffect(() => {
+    const fetchAgents = async () => {
+      const allAgents = await loadAllAgents()
+      setAgents(allAgents)
+    }
+
+    fetchAgents()
+  }, [])
 
   const isSearching = sidebarSearchQuery.trim() !== ''
+
+  useEffect(() => {
+    if (!isSearching) {
+      setSearchExpandedCategories({})
+    }
+  }, [isSearching])
 
   useEffect(() => {
     if (!isSearching) {
