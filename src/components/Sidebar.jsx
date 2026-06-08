@@ -118,87 +118,91 @@ const filteredAgents = !normalizedQuery
           </div>
         </div>
 
-        {/* Agent List */}
-        <nav className="flex-1 overflow-y-auto px-2 pb-4">
-          {categoryOrder.map((category) => {
-            const isCategoryExpanded = isSearching
-              ? (searchExpandedCategories[category] ?? true)
-              : Boolean(openCategories[category])
+{/* Agent List */}
+<nav className="flex-1 overflow-y-auto px-2 pb-4">
+  {/* Suites link */}
+  <NavLink
+    to="/suites"
+    onClick={onClose}
+    className={({ isActive }) =>
+      `flex items-center gap-2.5 px-2.5 py-2 rounded-md text-[13px] font-medium transition-colors mb-2
+      ${
+        isActive
+          ? 'bg-accent/10 text-accent dark:text-accent'
+          : 'dark:text-text-secondary dark:hover:text-text-primary dark:hover:bg-surface-hover text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+      }`
+    }
+  >
+    <span className="text-sm">✨</span>
+    <span className="truncate">Suites</span>
+  </NavLink>
 
-            return (
-              <div key={category} className="mb-3">
-                <button
-                  type="button"
-                  onClick={() => toggleCategory(category)}
-                  aria-expanded={isCategoryExpanded}
-                  className="w-full flex items-center justify-between gap-2 px-2 py-1.5 text-[10px] font-semibold uppercase tracking-widest dark:text-text-muted text-gray-400 hover:text-accent transition-colors"
-                >
-                  <span className="flex items-center gap-1.5 min-w-0">
-                    <span className="truncate">
-                      {category}
-                    </span>
+  <div className="border-b dark:border-border border-gray-100 mb-2" />
 
-                    <span className="text-[9px] font-medium px-1.5 py-0.5 rounded-full bg-accent/10 text-accent tracking-normal">
-                      {categories[category].length}
-                    </span>
-                  </span>
+  {categoryOrder.map((category) => {
+    const isCategoryExpanded = isSearching
+      ? (searchExpandedCategories[category] ?? true)
+      : Boolean(openCategories[category])
 
-                  {isCategoryExpanded ? (
-                    <Icons.ChevronDown
-                      size={12}
-                      className="flex-shrink-0"
-                    />
-                  ) : (
-                    <Icons.ChevronRight
-                      size={12}
-                      className="flex-shrink-0"
-                    />
-                  )}
-                </button>
+    return (
+      <div key={category} className="mb-3">
+        <button
+          type="button"
+          onClick={() => toggleCategory(category)}
+          aria-expanded={isCategoryExpanded}
+          className="w-full flex items-center justify-between gap-2 px-2 py-1.5 text-[10px] font-semibold uppercase tracking-widest dark:text-text-muted text-gray-400 hover:text-accent transition-colors"
+        >
+          <span className="flex items-center gap-1.5 min-w-0">
+            <span className="truncate">{category}</span>
 
-                {isCategoryExpanded && (
-                  <div className="mt-0.5">
-                    {categories[category].map((agent) => {
-                      const IconComponent =
-                        Icons[agent.icon] || Icons.Bot
+            <span className="text-[9px] font-medium px-1.5 py-0.5 rounded-full bg-accent/10 text-accent tracking-normal">
+              {categories[category].length}
+            </span>
+          </span>
 
-                      return (
-                        <NavLink
-                          key={agent.id}
-                          to={`/agent/${agent.id}`}
-                          onClick={onClose}
-                          className={({ isActive }) =>
-                            `flex items-center gap-2.5 px-2.5 py-2 rounded-md text-[13px] font-medium transition-colors mb-0.5
-                            ${
-                              isActive
-                                ? 'bg-accent/10 text-accent dark:text-accent'
-                                : 'dark:text-text-secondary dark:hover:text-text-primary dark:hover:bg-surface-hover text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                            }`
-                          }
-                        >
-                          <IconComponent
-                            size={15}
-                            className="flex-shrink-0"
-                          />
-
-                          <span className="truncate">
-                            {agent.name}
-                          </span>
-                        </NavLink>
-                      )
-                    })}
-                  </div>
-                )}
-              </div>
-            )
-          })}
-
-          {filteredAgents.length === 0 && (
-            <div className="px-4 py-8 text-center text-xs text-gray-400 dark:text-text-muted">
-              No agents found
-            </div>
+          {isCategoryExpanded ? (
+            <Icons.ChevronDown size={12} className="flex-shrink-0" />
+          ) : (
+            <Icons.ChevronRight size={12} className="flex-shrink-0" />
           )}
-        </nav>
+        </button>
+
+        {isCategoryExpanded && (
+          <div className="mt-0.5">
+            {categories[category].map((agent) => {
+              const IconComponent = Icons[agent.icon] || Icons.Bot
+
+              return (
+                <NavLink
+                  key={agent.id}
+                  to={`/agent/${agent.id}`}
+                  onClick={onClose}
+                  className={({ isActive }) =>
+                    `flex items-center gap-2.5 px-2.5 py-2 rounded-md text-[13px] font-medium transition-colors mb-0.5
+                    ${
+                      isActive
+                        ? 'bg-accent/10 text-accent dark:text-accent'
+                        : 'dark:text-text-secondary dark:hover:text-text-primary dark:hover:bg-surface-hover text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                    }`
+                  }
+                >
+                  <IconComponent size={15} className="flex-shrink-0" />
+                  <span className="truncate">{agent.name}</span>
+                </NavLink>
+              )
+            })}
+          </div>
+        )}
+      </div>
+    )
+  })}
+
+  {filteredAgents.length === 0 && (
+    <div className="px-4 py-8 text-center text-xs text-gray-400 dark:text-text-muted">
+      No agents found
+    </div>
+  )}
+</nav>
 
         {/* Footer */}
         <div className="mt-auto px-4 py-3 border-t dark:border-border border-gray-200">
