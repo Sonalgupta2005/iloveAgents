@@ -14,13 +14,16 @@ import {
   ArrowRight,
 } from 'lucide-react'
 import * as Icons from 'lucide-react'
-import agents from '../agents/registry'
+import { loadAllAgents } from '../agents/registry'
 import OutputRenderer from '../components/OutputRenderer'
 import ApiKeyBar from '../components/ApiKeyBar'
+import RunRating from '../components/RunRating'
 import { useApiKey } from '../lib/useApiKey'
 import { runAgent } from '../lib/llmAdapter'
 import { resolveAgentModel, MODEL_MAP } from '../lib/resolveAgentModel'
 import { fetchWorkflowById, incrementUsage } from '../hooks/useWorkflows'
+import { exportWorkflowAsMarkdown } from '../lib/exportMarkdown'
+import { useDocumentTitle } from '../lib/useDocumentTitle'
 
 const STATUS_COLORS = {
   waiting: 'dark:text-text-muted text-gray-400',
@@ -84,11 +87,12 @@ export default function WorkflowRunner() {
   const [loadingWorkflow, setLoadingWorkflow] = useState(!location.state?.workflow)
   const [fetchError, setFetchError] = useState(null)
 
-  const [userInput, setUserInput] = useState('')
+  const [userInput, setUserInput] = useState(location.state?.initialInput ?? '')
   const [running, setRunning] = useState(false)
   const [steps, setSteps] = useState([])
   const [allDone, setAllDone] = useState(false)
   const [hasRun, setHasRun] = useState(false)
+  useDocumentTitle(workflow?.title ? `Run ${workflow.title}` : 'Run Workflow')
 
   // Fetch workflow if not passed via state
   useEffect(() => {
@@ -108,6 +112,11 @@ export default function WorkflowRunner() {
     })
   }, [id])
 
+  const [agents, setAgents] = useState([])
+  useEffect(() => {
+    loadAllAgents().then(setAgents)
+  }, [])
+
   // Initialize step states when workflow is ready
   useEffect(() => {
     if (!workflow) return
@@ -124,7 +133,7 @@ export default function WorkflowRunner() {
         }
       })
     )
-  }, [workflow])
+  }, [workflow, agents])
 
   const setStepField = (index, fields) => {
     setSteps((prev) => prev.map((s, i) => (i === index ? { ...s, ...fields } : s)))
@@ -325,7 +334,19 @@ export default function WorkflowRunner() {
           </button>
         )}
 
-        {allDone && <CopyAllButton steps={steps} />}
+        {allDone && (
+           <>
+            <CopyAllButton steps={steps} />
+            <button
+              onClick={() => exportWorkflowAsMarkdown(workflow?.title ?? 'workflow', steps)}
+              className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-colors
+               dark:bg-surface-card dark:border-border dark:text-text-secondary dark:hover:text-text-primary
+                bg-white border border-gray-200 text-gray-600 hover:text-gray-900"
+            >
+              Export as Markdown
+            </button>
+          </>
+        )}
       </div>
 
       {/* Steps */}
@@ -378,6 +399,7 @@ export default function WorkflowRunner() {
                       outputType={step.agent?.outputType ?? 'text'}
                       agentName={step.agentName}
                     />
+                    <RunRating />
                   </div>
                 )}
 
