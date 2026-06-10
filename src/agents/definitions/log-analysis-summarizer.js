@@ -5,7 +5,6 @@ export default {
   description:
     "Paste raw log output and get a structured summary of errors, warnings, patterns, timeline of events, and likely root cause — so you find the 5 lines that matter in 500 lines of noise.",
   category: "DevOps",
-  category: "Engineering",
   icon: "ScrollText",
   provider: "any",
   defaultProvider: "anthropic",
@@ -30,7 +29,6 @@ export default {
 2026-06-04T03:15:21Z INFO  [order-service] Service recovering — 200 responses resuming`,
     log_source: "Application (Node.js / Python / Java / etc.)",
     focus_area: ["Errors & Root Cause"],
-    focus_area: "Errors & Root Cause",
     time_range: "",
   },
   inputs: [
