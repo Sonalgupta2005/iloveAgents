@@ -304,7 +304,12 @@ useEffect(() => {
 )}
 
       {/* ── Search & Category Filter Section ── */}
-      <div className="premium-section mb-6 space-y-4" style={{ animationDelay: '180ms' }}>
+      <div
+  className={`premium-section space-y-4 ${
+    isOpen ? "mb-80" : "mb-6"
+  }`}
+  style={{ animationDelay: "180ms" }}
+>
         {/* Search Bar */}
         <div className="relative max-w-xl mx-auto
           rounded-full
@@ -349,7 +354,7 @@ useEffect(() => {
 
         {/* Category Filter Dropdown */}
         <div className="flex justify-center" onKeyDown={handleKeyDown}>
-          <div ref={dropdownRef} className="relative w-72">
+          <div ref={dropdownRef} className="relative w-72 z-50">
             {!selectedCategory ? (
               // Default State
               <button
@@ -423,8 +428,7 @@ useEffect(() => {
                 role="listbox"
                 aria-label="Agent categories"
                 aria-activedescendant={focusedIndex >= 0 ? `option-${focusedIndex}` : undefined}
-                className="absolute left-0 right-0 mt-2 z-50 rounded-xl border shadow-2xl max-h-60 overflow-y-auto p-1.5 space-y-1
-                  dark:bg-surface-card dark:border-border bg-white border-gray-200 animate-fade-in"
+                className="absolute left-0 right-0 mt-2 z-50 rounded-xl border shadow-2xl max-h-[70vh] overflow-y-auto p-1.5 space-y-1 bg-white dark:bg-surface-card"
               >
                 {dropdownOptions.map((opt, idx) => {
                   const isSelected = opt.value === selectedCategory
@@ -439,6 +443,8 @@ useEffect(() => {
                       ref={(el) => (optionRefs.current[idx] = el)}
                       type="button"
                       onClick={() => {
+                        
+                        
                         setSelectedCategory(opt.value)
                         setIsOpen(false)
                         setFocusedIndex(-1)
@@ -479,7 +485,8 @@ useEffect(() => {
       </div>
 
       {/* Agent Grid */}
-      <div className="premium-section flex flex-col lg:flex-row gap-8 mb-8" style={{ animationDelay: '220ms' }}>
+      <div
+        className="premium-section flex flex-col lg:flex-row gap-8 mb-8 relative z-0" style={{ animationDelay: '220ms' }}>
         <div className="flex-1">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-sm font-semibold uppercase tracking-wider dark:text-text-muted text-gray-400">
