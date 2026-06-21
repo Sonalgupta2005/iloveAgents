@@ -18,6 +18,7 @@ import WorkflowRunner from './pages/WorkflowRunner'
 import NotFoundPage from './pages/NotFoundPage'
 import SuitesPage from './pages/SuitesPage'
 import ErrorBoundary from './components/ErrorBoundary'
+import SchedulerPage from './pages/SchedulerPage'
 
 // Shared layout: Navbar + Sidebar + main content area
 function MainLayout({ sidebarOpen, setSidebarOpen }) {
@@ -56,6 +57,8 @@ export default function App() {
             <Route path="/agent/:id" element={<AgentPage />} />
             {/* Suites */}
             <Route path="/suites" element={<SuitesPage />} />
+            {/* Scheduler */}
+            <Route path="/scheduler" element={<SchedulerPage />} />
             {/* Workflow routes */}
             <Route path="/workflows" element={<WorkflowLibrary />} />
             <Route path="/workflows/build" element={<WorkflowBuilder />} />

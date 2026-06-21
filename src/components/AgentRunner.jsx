@@ -14,6 +14,7 @@ import {
   RotateCw,
   GitBranch,
   Trash2,
+  CalendarClock,
 } from "lucide-react";
 import ApiKeyBar from "./ApiKeyBar";
 import ApiKeyInfo from "./ApiKeyInfo";
@@ -24,6 +25,8 @@ import VoiceInput from "./VoiceInput";
 import SuggestedChainPills from "./SuggestedChainPills";
 import RunRating from "./RunRating";
 import ErrorBoundary from "./ErrorBoundary";
+import ScheduleAgentModal from "./ScheduleAgentModal";
+import { useScheduler } from "../lib/useScheduler";
 import { useApiKey } from "../lib/useApiKey";
 import { streamAgent } from "../lib/llmAdapter";
 import { analyseModels } from "../lib/modelAnalyser";
@@ -79,6 +82,9 @@ export default function AgentRunner({ agent }) {
   const [analyserOpen, setAnalyserOpen] = useState(false);
   const [modelRecommendation, setModelRecommendation] = useState(null);
   const [analyserLoading, setAnalyserLoading] = useState(false);
+  const [scheduleModalOpen, setScheduleModalOpen] = useState(false);
+
+  const { addJob } = useScheduler();
 
   const isPromptModified = customPrompt !== agent.systemPrompt;
   const abortControllerRef = useRef(null);
@@ -697,6 +703,18 @@ export default function AgentRunner({ agent }) {
           Clear
         </button>
 
+        {/* Schedule button */}
+        <button
+          onClick={() => setScheduleModalOpen(true)}
+          title="Schedule this agent to run automatically"
+          className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors
+            dark:text-text-secondary dark:hover:text-text-primary dark:hover:bg-surface-hover
+            text-gray-500 hover:text-gray-900 hover:bg-gray-100"
+        >
+          <CalendarClock size={14} />
+          Schedule
+        </button>
+
         {duration && (
           <div className="flex items-center gap-1 text-[11px] dark:text-text-muted text-gray-400 ml-auto">
             <Clock size={11} />
@@ -802,6 +820,26 @@ export default function AgentRunner({ agent }) {
             </button>
           </div>
         </div>
+      )}
+
+      {/* Schedule Agent Modal */}
+      {scheduleModalOpen && (
+        <ScheduleAgentModal
+          agent={agent}
+          inputs={inputs}
+          provider={provider}
+          apiKey={apiKey}
+          onSchedule={(scheduleData) => {
+            addJob({
+              agentId: agent.id,
+              agentName: agent.name,
+              agentDefinition: agent,
+              inputs: { ...inputs },
+              ...scheduleData,
+            })
+          }}
+          onClose={() => setScheduleModalOpen(false)}
+        />
       )}
     </div>
   );
