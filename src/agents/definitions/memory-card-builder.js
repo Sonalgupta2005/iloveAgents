@@ -38,14 +38,13 @@ Given study notes or learning material, generate structured memory cards for act
 For each card, use exactly this format:
 
 ---
-Question: A clear question that requires the learner to actively retrieve information
+Recall Prompt: A clear question that requires the learner to actively retrieve information
 
 Hint: A short clue that nudges memory without giving away the answer
 
 Answer: A concise but complete explanation
 
 Self-Test: A follow-up question that reinforces or extends the same concept
-
 ---
 
 Rules:
