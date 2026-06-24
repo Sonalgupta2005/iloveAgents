@@ -6,11 +6,34 @@ import SuiteWizard from '../components/SuiteWizard'
 import { useDocumentTitle } from '../lib/useDocumentTitle'
 import { generateCustomSuite } from '../lib/customSuiteGenerator'
 import { useApiKey } from '../lib/useApiKey'
+import ApiKeyBar from '../components/ApiKeyBar'
+
+// Map icon name string → Lucide component
+const SUITE_ICONS = {
+  Code2, BarChart3, TrendingUp, DollarSign, Palette,
+  PenLine, GraduationCap, Briefcase, HeartPulse, ShieldCheck, Gamepad2,
+}
+
+/**
+ * SuitesPage
+ *
+ * BROWSE state — shows all suite cards
+ * QUIZ state   — shows SuiteWizard for the selected suite
+ */
 export default function SuitesPage() {
   useDocumentTitle('Suites')
   const navigate = useNavigate()
-  const { apiKey, provider } = useApiKey()
+  const {
+    provider,
+    setProvider,
+    apiKey,
+    setApiKey,
+    saveForSession,
+    setSaveForSession,
+  } = useApiKey()
+
   const [activeSuite, setActiveSuite] = useState(null)
+  const [selectedModel, setSelectedModel] = useState(null)
 
   // Custom suite generator state
   const [goal, setGoal] = useState('')
@@ -77,6 +100,21 @@ export default function SuitesPage() {
           Don't see a suite for your goal? Describe it and we'll pick the best agents for you.
         </p>
 
+        {/* API Key Bar */}
+        <div className="mb-4">
+          <ApiKeyBar
+            provider={provider}
+            setProvider={setProvider}
+            apiKey={apiKey}
+            setApiKey={setApiKey}
+            saveForSession={saveForSession}
+            setSaveForSession={setSaveForSession}
+            agentProvider="any"
+            model={selectedModel}
+            setModel={setSelectedModel}
+          />
+        </div>
+
         <div className="flex gap-2">
           <input
             type="text"
@@ -104,12 +142,6 @@ export default function SuitesPage() {
             {generating ? 'Generating...' : 'Generate'}
           </button>
         </div>
-
-        {!apiKey && (
-          <p className="text-[11px] dark:text-text-muted text-gray-400 mt-2">
-            Add an API key on any agent page to use this feature.
-          </p>
-        )}
 
         {generatorError && (
           <p className="text-[11px] text-red-500 mt-2">{generatorError}</p>
