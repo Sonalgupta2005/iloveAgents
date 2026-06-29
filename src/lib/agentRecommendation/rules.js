@@ -1,0 +1,33 @@
+export const TASK_KEYWORDS = {
+  code: ['code', 'api', 'sql', 'regex', 'test', 'debug', 'developer', 'engineering', 'kubernetes', 'solidity', 'smart contract'],
+  debug: ['debug', 'bug', 'error', 'troubleshoot', 'incident', 'log', 'failure'],
+  review: ['review', 'audit', 'quality', 'risk', 'security', 'complexity'],
+  analyze: ['analyze', 'analysis', 'report', 'evaluate', 'diagnose', 'screen', 'detect'],
+  write: ['write', 'writer', 'copy', 'email', 'post', 'script', 'proposal', 'letter', 'description'],
+  generate: ['generate', 'generator', 'create', 'builder'],
+  rewrite: ['rewrite', 'tone', 'improve', 'optimize'],
+  optimize: ['seo', 'optimize', 'keyword', 'performance', 'cost'],
+  research: ['research', 'summarize', 'summary', 'competitive', 'market'],
+  summarize: ['summary', 'summarize', 'notes', 'pdf', 'log'],
+  explain: ['explain', 'eli5', 'explainer', 'guide'],
+  quiz: ['quiz', 'flashcard', 'study', 'exam', 'paper'],
+  practice: ['interview', 'practice', 'dsa'],
+  plan: ['plan', 'planner', 'roadmap', 'checklist', 'onboarding', 'runbook'],
+  strategy: ['strategy', 'prd', 'product', 'business', 'startup', 'sales'],
+  design: ['design', 'palette', 'font', 'typography', 'image', 'visual', 'game'],
+  creative: ['creative', 'ideas', 'lore', 'dialogue', 'image', 'story'],
+  technical: ['technical', 'architecture', 'database', 'cloud', 'ci/cd', 'etl'],
+  audit: ['audit', 'review', 'score', 'risk', 'security'],
+  checklist: ['checklist', 'steps', 'plan', 'runbook'],
+  structure: ['structured', 'document', 'template', 'format'],
+  document: ['document', 'documentation', 'report', 'proposal', 'prd'],
+}
+
+export const OUTPUT_KEYWORDS = {
+  document: ['document', 'documentation', 'report', 'proposal', 'prd', 'whitepaper', 'policy'],
+  code: ['code', 'api', 'sql', 'regex', 'unit test', 'manifest', 'yaml'],
+  checklist: ['checklist', 'plan', 'runbook', 'roadmap', 'steps'],
+  strategy: ['strategy', 'analysis', 'business', 'competitive', 'market', 'sales'],
+  email: ['email', 'reply', 'outreach', 'follow-up', 'cold email'],
+  data: ['data', 'dataset', 'schema', 'csv', 'etl', 'ml'],
+}
