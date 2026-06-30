@@ -168,6 +168,7 @@ export default function HomePage() {
 
   const handleOpenRecommendationWizard = (event) => {
     event?.preventDefault()
+    if (event?.currentTarget) recommendationWizardTriggerRef.current = event.currentTarget
     setIsRecommendationWizardOpen(true)
   }
 
@@ -547,15 +548,24 @@ export default function HomePage() {
               <p className="text-xs dark:text-text-secondary text-gray-500 mb-4">
                 Try adjusting your search or removing category filters
               </p>
-              <button
-                onClick={() => {
-                  setSearchQuery("");
-                  setSelectedCategory(null);
-                }}
-                className="inline-flex items-center gap-1.5 text-xs font-medium text-accent hover:text-accent-hover transition-colors"
-              >
-                Clear all filters <X size={12} />
-              </button>
+              <div className="flex flex-col items-center gap-2">
+                <button
+                  onClick={() => {
+                    setSearchQuery("");
+                    setSelectedCategory(null);
+                  }}
+                  className="inline-flex items-center gap-1.5 text-xs font-medium text-accent hover:text-accent-hover transition-colors"
+                >
+                  Clear all filters <X size={12} />
+                </button>
+                <button
+                  type="button"
+                  onClick={handleOpenRecommendationWizard}
+                  className="text-xs text-gray-500 transition-colors hover:text-accent dark:text-text-secondary"
+                >
+                  Need help choosing? <span className="font-medium">Try the recommendation wizard</span>
+                </button>
+              </div>
             </div>
           )}
         </div>

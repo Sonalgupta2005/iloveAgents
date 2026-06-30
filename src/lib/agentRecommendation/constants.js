@@ -1,13 +1,5 @@
 import { BarChart3, BookOpen, Briefcase, Code2, Image, PenLine, Search, Workflow } from 'lucide-react'
 
-export const STEP_IDS = {
-  GOAL: 'goal',
-  EXPERIENCE: 'experience',
-  PROVIDER: 'provider',
-  BUDGET: 'budget',
-  PREFERENCES: 'preferences',
-}
-
 export const RESULT_LIMIT = 10
 export const MIN_CONFIDENT_SCORE = 12
 
@@ -15,7 +7,6 @@ export const DEFAULT_RECOMMENDATION_WEIGHTS = {
   exactCategory: 30,
   goalCategory: 20,
   taskType: 18,
-  outputFormat: 12,
   providerExact: 8,
   providerAny: 4,
   freeTextName: 10,

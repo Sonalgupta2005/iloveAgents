@@ -1,14 +1,14 @@
 import { Check } from 'lucide-react'
 import { GOAL_OPTIONS, EXPERIENCE_OPTIONS, PROVIDER_OPTIONS, BUDGET_OPTIONS, EXTRA_PREFERENCE_OPTIONS } from '../../lib/agentRecommendation/constants.js'
 
-function OptionButton({ option, selected, onClick, multi = false }) {
+function OptionButton({ option, selected, onClick }) {
   const Icon = option.icon
   return (
     <button type="button" onClick={onClick} aria-pressed={selected} className={`min-h-11 rounded-xl border p-4 text-left transition-all duration-200 ${selected ? 'border-accent bg-accent/10 text-accent' : 'border-gray-200 bg-white text-gray-700 hover:border-indigo-300 dark:bg-surface-card dark:border-border dark:text-text-secondary dark:hover:border-accent/40'}`}>
       <span className="flex items-start gap-3">
         {Icon && <Icon size={18} className="mt-0.5 shrink-0" aria-hidden="true" />}
         <span className="min-w-0 flex-1"><span className="block text-sm font-semibold text-gray-900 dark:text-text-primary">{option.label}</span>{option.description && <span className="mt-1 block text-xs leading-relaxed text-gray-500 dark:text-text-secondary">{option.description}</span>}</span>
-        {selected && <span className="inline-flex items-center gap-1 text-[10px] font-semibold"><Check size={13} aria-hidden="true" />{multi ? 'Selected' : 'Selected'}</span>}
+        {selected && <span className="inline-flex items-center gap-1 text-[10px] font-semibold"><Check size={13} aria-hidden="true" />Selected</span>}
       </span>
     </button>
   )
