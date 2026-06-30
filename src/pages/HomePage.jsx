@@ -165,6 +165,11 @@ export default function HomePage() {
     })
   }, [agents, searchQuery, selectedCategory])
 
+  const handleOpenRecommendationWizard = (event) => {
+    event?.preventDefault()
+    setIsRecommendationWizardOpen(true)
+  }
+
   const handleRerun = (run) => {
     navigate(`/agent/${run.agentId}`, { state: { prefill: run.inputs } })
   }
@@ -204,7 +209,7 @@ export default function HomePage() {
           </button>
           <RecommendationWizardEntry
             ref={recommendationWizardTriggerRef}
-            onOpen={() => setIsRecommendationWizardOpen(true)}
+            onOpen={handleOpenRecommendationWizard}
             disabled={agentsLoading}
             loading={agentsLoading}
           />

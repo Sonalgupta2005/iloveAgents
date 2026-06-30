@@ -6,7 +6,10 @@ const RecommendationWizardEntry = forwardRef(function RecommendationWizardEntry(
     <button
       ref={ref}
       type="button"
-      onClick={onOpen}
+      onClick={(event) => {
+        event.preventDefault()
+        onOpen?.(event)
+      }}
       disabled={disabled || loading}
       className="inline-flex items-center justify-center gap-2 px-5 py-2 rounded-lg text-sm font-semibold border border-accent/30 text-accent bg-accent/10 hover:bg-accent/15 transition-all duration-200 shadow-md shadow-indigo-500/10 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60"
       aria-label="Open smart agent recommendation wizard"
