@@ -11,6 +11,7 @@ import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts'
 import { useAgents } from '../lib/useAgents'
 import RecommendationWizardEntry from '../components/recommendation/RecommendationWizardEntry'
 import RecommendationWizardModal from '../components/recommendation/RecommendationWizardModal'
+import { Link } from "react-router-dom";
 
 // Category icons/colors for the filter pills
 const categoryMeta = {
@@ -663,14 +664,12 @@ export default function HomePage() {
         <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Legal</h4>
         
         {/* Placeholder Link - Disabled click behavior */}
-        <a 
-          href="#" 
-          onClick={(e) => e.preventDefault()}
-          title="Coming Soon"
-          className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:underline transition-colors cursor-not-allowed opacity-75"
-        >
-          Privacy Policy
-        </a>
+       <Link
+  to="/privacy"
+  className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:underline transition-colors"
+>
+  Privacy Policy
+</Link>
         
         {/* Placeholder Link - Disabled click behavior */}
         <a 
