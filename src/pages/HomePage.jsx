@@ -35,7 +35,8 @@ export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('')
   const { agents, loading: agentsLoading } = useAgents()
   const [isRecommendationWizardOpen, setIsRecommendationWizardOpen] = useState(false)
-  const recommendationWizardTriggerRef = useRef(null)
+  const recommendationWizardHeroTriggerRef = useRef(null)
+  const recommendationWizardReturnFocusRef = useRef(null)
   const [selectedCategory, setSelectedCategory] = useState(null)
   const allCategories = useMemo(() => {
     return [...new Set(agents.map((a) => a.category))].sort()
@@ -168,7 +169,7 @@ export default function HomePage() {
 
   const handleOpenRecommendationWizard = (event) => {
     event?.preventDefault()
-    if (event?.currentTarget) recommendationWizardTriggerRef.current = event.currentTarget
+    if (event?.currentTarget) recommendationWizardReturnFocusRef.current = event.currentTarget
     setIsRecommendationWizardOpen(true)
   }
 
@@ -188,7 +189,7 @@ export default function HomePage() {
         agents={agents}
         isOpen={isRecommendationWizardOpen}
         onClose={() => setIsRecommendationWizardOpen(false)}
-        triggerRef={recommendationWizardTriggerRef}
+        triggerRef={recommendationWizardReturnFocusRef}
       />
       {/* Hero */}
       <div className="premium-section text-center mb-10 pt-2 overflow-hidden">
@@ -210,7 +211,7 @@ export default function HomePage() {
             Enter Battle Mode
           </button>
           <RecommendationWizardEntry
-            ref={recommendationWizardTriggerRef}
+            ref={recommendationWizardHeroTriggerRef}
             onOpen={handleOpenRecommendationWizard}
             disabled={agentsLoading}
             loading={agentsLoading}

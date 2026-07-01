@@ -49,16 +49,17 @@ export default function RecommendationWizardModal({ agents = [], isOpen, onClose
 
       if (event.key !== 'Tab' || !panelRef.current) return
 
-      const focusable = panelRef.current.querySelectorAll('button:not([disabled]), a[href], textarea, input, select, [tabindex]:not([tabindex="-1"])')
+      const focusable = [...panelRef.current.querySelectorAll('button:not([disabled]), a[href], textarea, input, select, [tabindex]:not([tabindex="-1"])')]
       if (!focusable.length) return
 
       const first = focusable[0]
       const last = focusable[focusable.length - 1]
+      const activeElement = document.activeElement
 
-      if (event.shiftKey && document.activeElement === first) {
+      if (event.shiftKey && (activeElement === first || !focusable.includes(activeElement))) {
         event.preventDefault()
         focusWithoutScroll(last)
-      } else if (!event.shiftKey && document.activeElement === last) {
+      } else if (!event.shiftKey && activeElement === last) {
         event.preventDefault()
         focusWithoutScroll(first)
       }
