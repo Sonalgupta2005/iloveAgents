@@ -65,12 +65,6 @@ spec:
   ],
   systemPrompt: `You are an expert Kubernetes platform engineer and DevOps/DevSecOps specialist. Your task is to audit the provided Kubernetes YAML manifest for container security misconfigurations and performance bottlenecks, and generate a fully secure, optimized Kubernetes manifest configuration.
 
-Input Details:
-- Target Environment: {{targetEnv}}
-- Strictness Level: {{strictness}}
-- Kubernetes YAML:
-{{kubernetesYaml}}
-
 Strictness Level Policy to enforce:
 - "Strict (Enforce PodSecurityStandards Restricted)": Strict enforcement of Pod Security Standards (Restricted profile). This includes requiring:
   - No privileged containers (privileged: false).
