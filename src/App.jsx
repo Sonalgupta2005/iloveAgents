@@ -47,10 +47,6 @@ export default function App() {
       <ScrollToBottom />
       <ErrorBoundary>
         <Routes>
-          <Route path="/battle" element={<BattleModeLanding />} />
-          <Route path="/battle/setup" element={<BattleModeSetup />} />
-          <Route path="/battle/arena" element={<BattleModeArena />} />
-          <Route path="/battle/winner" element={<BattleModeWinner />} />
 
           <Route element={<MainLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />}>
             <Route path="/" element={<HomePage />} />
@@ -68,6 +64,11 @@ export default function App() {
             <Route path="/workflows/build" element={<WorkflowBuilder />} />
             <Route path="/workflows/:id" element={<WorkflowDetail />} />
             <Route path="/workflows/:id/run" element={<WorkflowRunner />} />
+
+            <Route path="/battle" element={<BattleModeLanding />} />
+            <Route path="/battle/setup" element={<BattleModeSetup />} />
+            <Route path="/battle/arena" element={<BattleModeArena />} />
+            <Route path="/battle/winner" element={<BattleModeWinner />} />
 
             <Route path="*" element={<NotFoundPage />} />
           </Route>
