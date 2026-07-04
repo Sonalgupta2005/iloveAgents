@@ -189,7 +189,6 @@ export default function BattleModeArena() {
               duration: null,
             },
           }));
-          setFirstFinisher((prev) => prev ?? prov.id);
         });
     });
 
