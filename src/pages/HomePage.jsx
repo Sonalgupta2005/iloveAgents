@@ -722,15 +722,12 @@ export default function HomePage() {
   Privacy Policy
 </Link>
         
-        {/* Placeholder Link - Disabled click behavior */}
-        <a 
-          href="#" 
-          onClick={(e) => e.preventDefault()}
-          title="Coming Soon"
-          className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:underline transition-colors cursor-not-allowed opacity-75"
+        <Link
+          to="/terms"
+          className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:underline transition-colors"
         >
           Terms of Service
-        </a>
+        </Link>
       </div>
 
       {/* Column 4: Contribute CTA */}
