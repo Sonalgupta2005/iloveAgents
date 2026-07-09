@@ -46,19 +46,23 @@ export default function SuiteWizard({ suite, onBack }) {
 
   // Commit the current answer and advance
   const handleNext = () => {
-  const selected = answers[step]
+  const newCounts = {}
+  let newAnsweredCount = 0
 
-  if (selected !== null) {
-    const option = questions[step].options[selected]
-    const newCounts = { ...tagCounts }
+  answers.forEach((selected, questionIndex) => {
+    if (selected == null) return
+
+    newAnsweredCount++
+
+    const option = questions[questionIndex].options[selected]
 
     option.tags.forEach((tag) => {
       newCounts[tag] = (newCounts[tag] || 0) + 1
     })
+  })
 
-    setTagCounts(newCounts)
-    setAnsweredCount((c) => c + 1)
-  }
+  setTagCounts(newCounts)
+  setAnsweredCount(newAnsweredCount)
 
   advance()
 }
