@@ -792,7 +792,7 @@ export default function AgentRunner({ agent }) {
               className="underline text-accent"
               onClick={() => window.location.reload()}
             >
-              Retry
+              Reloads page after an invalid API key error
             </button>
             {error.detail && (
               <>
@@ -831,7 +831,7 @@ export default function AgentRunner({ agent }) {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
               </span>
-              Streaming...
+              Streaming....
             </span>
           </div>
           <div className="rounded-lg border p-4 dark:bg-surface-card dark:border-border bg-white border-gray-200">
