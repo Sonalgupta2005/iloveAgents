@@ -237,13 +237,23 @@ export default function WorkflowRunner() {
           ? provider
           : step.agent.provider
 
+      const keyToUse = actualProvider === provider
+        ? apiKey
+        : (sessionStorage.getItem(`ila_apikey_${actualProvider}`) || '')
+
+      if (!keyToUse) {
+        setStepField(i, { status: 'failed', error: `API key for provider "${actualProvider}" is not configured.` })
+        failed = true
+        break
+      }
+
       const model = resolveAgentModel(step.agent, actualProvider)
 
       try {
         const result = await runAgent({
           provider: actualProvider,
           model,
-          apiKey,
+          apiKey: keyToUse,
           systemPrompt: step.agent.systemPrompt,
           userMessage: currentInput,
         })
@@ -543,7 +553,8 @@ export default function WorkflowRunner() {
                       outputType={step.agent?.outputType ?? 'text'}
                       agentName={step.agentName}
                     />
-                    <RunRating />
+                    <RunRating agentId={step.agent?.id} /> 
+
                   </div>
                 )}
 
