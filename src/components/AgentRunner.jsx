@@ -373,7 +373,7 @@ const handleRun = async () => {
   const handleSendToWorkflow = () => {
     navigate("/workflows/build", {
       state: {
-        preSelectedAgent: agent,
+        preselectedAgents: [agent.id],
         preFilledOutput: output,
       },
     });
@@ -951,7 +951,7 @@ const handleRun = async () => {
               className="underline text-accent"
               onClick={() => window.location.reload()}
             >
-              Retry
+              Reloads page after an invalid API key error
             </button>
             {error.detail && (
               <>
@@ -990,7 +990,7 @@ const handleRun = async () => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
               </span>
-              Streaming...
+              Streaming....
             </span>
           </div>
           <div className="rounded-lg border p-4 dark:bg-surface-card dark:border-border bg-white border-gray-200">
@@ -1059,8 +1059,8 @@ const handleRun = async () => {
   </div>
 )}
           </ErrorBoundary>
-          <RunRating />
-          <div className="flex justify-end">
+          <div className="mt-4">
+            <RunRating agentId={agent.id} />
             <button
               onClick={handleSendToWorkflow}
               className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold
