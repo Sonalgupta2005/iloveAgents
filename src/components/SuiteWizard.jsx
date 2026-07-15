@@ -41,7 +41,7 @@ export default function SuiteWizard({ suite, onBack }) {
   
   useEffect(() => {
   const handleKeyDown = (event) => {
-    if (event.key !== "Enter") return
+    if (event.key !== "Enter" || event.repeat) return
 
     const active = document.activeElement
 
@@ -51,15 +51,16 @@ export default function SuiteWizard({ suite, onBack }) {
       const isInteractive =
         ["BUTTON", "INPUT", "TEXTAREA", "SELECT", "A"].includes(tag)
 
-      const isOptionButton =
-        active.dataset.option === "true"
+      const isSelectedOptionButton =
+  active.dataset.option === "true" &&
+  Number(active.dataset.index) === answers[step]
 
-      if (isInteractive && !isOptionButton) {
-        return
-      }
+if (isInteractive && !isSelectedOptionButton) {
+  return
+}
     }
 
-    if (selected == null) return
+    if (answers[step] == null) return
 
     event.preventDefault()
     handleNext()
@@ -70,7 +71,7 @@ export default function SuiteWizard({ suite, onBack }) {
   return () => {
     window.removeEventListener("keydown", handleKeyDown)
   }
-}, [selected, step])
+}, [answers, step])
 
   // ── Helpers
 
@@ -292,6 +293,7 @@ export default function SuiteWizard({ suite, onBack }) {
           <button
             key={idx}
 data-option="true"
+data-index={idx}
 onClick={() => {
   const updated = [...answers]
   updated[step] = idx
