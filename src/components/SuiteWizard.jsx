@@ -35,21 +35,37 @@ export default function SuiteWizard({ suite, onBack }) {
   const [tagCounts, setTagCounts] = useState({})
   const [answeredCount, setAnsweredCount] = useState(0)
   const [showResults, setShowResults] = useState(false)
+  
   useEffect(() => {
   const handleKeyDown = (event) => {
-    if (event.key !== 'Enter') return
+    if (event.key !== "Enter") return
+
+    const active = document.activeElement
+
+    if (active) {
+      const tag = active.tagName
+
+      const isInteractive =
+        ["BUTTON", "INPUT", "TEXTAREA", "SELECT", "A"].includes(tag)
+
+      const isOptionButton =
+        active.dataset.option === "true"
+
+      if (isInteractive && !isOptionButton) {
+        return
+      }
+    }
 
     if (selected == null) return
 
     event.preventDefault()
-
     handleNext()
   }
 
-  window.addEventListener('keydown', handleKeyDown)
+  window.addEventListener("keydown", handleKeyDown)
 
   return () => {
-    window.removeEventListener('keydown', handleKeyDown)
+    window.removeEventListener("keydown", handleKeyDown)
   }
 }, [selected, step])
 
@@ -259,6 +275,7 @@ export default function SuiteWizard({ suite, onBack }) {
         {question.options.map((opt, idx) => (
           <button
             key={idx}
+            data-option="true"
             onClick={() => setSelected(idx)}
             className={`text-left px-4 py-3.5 rounded-xl border text-sm font-medium transition-all duration-150
               ${selected === idx
