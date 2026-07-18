@@ -84,7 +84,12 @@ function CopyButton({ text, label, icon: Icon = Copy }) {
 export default function OutputRenderer({ content, outputType, agentName, systemPrompt, userMessage }) {
   if (!content) return null
 
-  const shareText = `--- Agent: ${agentName} ---\n\n--- Output ---\n${content}`
+  // Normalize content to string for safe text operations (JSON outputs might be objects)
+  const stringContent = typeof content === 'object' && content !== null
+    ? JSON.stringify(content, null, 2)
+    : String(content || '');
+
+  const shareText = `--- Agent: ${agentName} ---\n\n--- Output ---\n${stringContent}`
 
   const handleDownloadTxt = () => {
     const timestamp = new Date().toISOString();
@@ -100,7 +105,7 @@ ${systemPrompt || 'N/A'}
 ${userMessage || 'N/A'}
 
 --- Output ---
-${content || ''}
+${stringContent}
 `;
     const blob = new Blob([logText], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
@@ -133,17 +138,17 @@ ${content || ''}
     <div className="animate-fade-in">
       {/* Toolbar */}
       <div className="flex items-center justify-between mb-3">
-        <span class="text-xs font-semibold uppercase tracking-wider dark:text-text-muted text-gray-400">
+        <span className="text-xs font-semibold uppercase tracking-wider dark:text-text-muted text-gray-400">
           Output
         </span>
         <div className="flex items-center gap-2">
           {/* VoiceOutput — reads the response aloud */}
           <VoiceOutput
-            text={typeof content === 'string' ? content : JSON.stringify(content)}
+            text={stringContent}
           />
 
-          <CopyButton text={content} label="Copy output" />
-          <CopyButton text={stripMarkdown(content)} label="Copy as Plain Text" icon={FileText} />
+          <CopyButton text={stringContent} label="Copy output" />
+          <CopyButton text={stripMarkdown(stringContent)} label="Copy as Plain Text" icon={FileText} />
           <CopyButton text={shareText} label="Share" />
           <button
             onClick={handleDownloadTxt}
