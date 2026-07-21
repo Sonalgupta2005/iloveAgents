@@ -4,7 +4,7 @@ import { Loader2 } from 'lucide-react'
 import Navbar from './components/Navbar'
 import Sidebar from './components/Sidebar'
 import CustomCursor from './components/CustomCursor'
-import ScrollToTop from './components/ScrollToTop'
+import ScrollToTopButton from './components/ScrollToTopButton'
 import ScrollToBottom from './components/ScrollToBottom'
 import ErrorBoundary from './components/ErrorBoundary'
 import OnboardingTour from './components/OnboardingTour'
@@ -27,6 +27,7 @@ const CollectionDetailPage = lazy(() => import('./pages/CollectionDetailPage'))
 const SchedulerPage = lazy(() => import('./pages/SchedulerPage'))
 const MarketplacePage = lazy(() => import('./pages/MarketplacePage'))
 const Privacy = lazy(() => import('./pages/Privacy'))
+const TermsOfService = lazy(() => import('./pages/TermsOfService'))
 const SettingsPage = lazy(() => import('./pages/SettingsPage'))
 
 function PageLoader() {
@@ -64,7 +65,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen transition-theme dark:bg-surface bg-gray-50">
-      <ScrollToTop />
+      <ScrollToTopButton />
       <ScrollToBottom />
       <ErrorBoundary>
         <Suspense fallback={<PageLoader />}>
@@ -79,7 +80,8 @@ export default function App() {
               />
             }>
               <Route path="/" element={<HomePage />} />
-              <Route path="/privacy" element={<Privacy />} />
+             <Route path="/privacy" element={<Privacy />} />
+              <Route path="/terms" element={<TermsOfService />} />
               <Route path="/settings" element={<SettingsPage />} />
               <Route path="/agent/:id" element={<AgentPage />} />
               <Route path="/suites" element={<SuitesPage />} />
