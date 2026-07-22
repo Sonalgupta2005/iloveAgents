@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { recordAnalyticsRun } from "../lib/useAnalytics";
 import { useNavigate } from "react-router-dom";
 import * as Icons from "lucide-react";
 import CustomSelect from "./CustomSelect";
@@ -306,6 +307,15 @@ const handleRun = async () => {
         inputs: { ...inputs },
         output: result.content,
         provider: actualProvider,
+      });
+
+      recordAnalyticsRun({
+        agentId: agent.id,
+        agentName: agent.name,
+        category: agent.category,
+        provider: actualProvider,
+        model,
+        duration: result.duration,
       });
    } catch (err) {
   if (err.name !== "AbortError") {
